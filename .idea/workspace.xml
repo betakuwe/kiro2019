@@ -2,7 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="82e2cb65-40b8-4ab8-847b-a8bec6f803bd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/data/input/input.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/data/output/output.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graph/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/graph/Graph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graph/edge/ComplexDirectedEdge.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graph/edge/ComplexNonDirectedEdge.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graph/edge/DirectedEdge.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graph/edge/Edge.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graph/edge/NonDirectedEdge.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graph/vertex/DirectedVertex.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graph/vertex/LinkedDirectedVertex.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graph/vertex/LinkedNonDirectedVertex.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graph/vertex/MatrixDirectedVertex.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graph/vertex/MatrixNonDirectedVertex.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graph/vertex/NonDirectedVertex.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graph/vertex/Vertex.java" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,10 +52,13 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Télécom ParisTech/S1/INF103" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="vcs.Subversion.SSH" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\SCH\personal programming\kiro2019\src\data\input" />
+    </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="" />
     </key>
@@ -54,6 +74,20 @@
         </RuleState>
       </list>
     </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="kiro2019" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration>C:\Users\e0174836\AppData\Roaming\Subversion</configuration>
@@ -73,7 +107,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
