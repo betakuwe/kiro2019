@@ -17,7 +17,7 @@ public class Main {
     String output = "src/data/output/output.out";
     try {
       FileWriter fw = new FileWriter(output);
-      BufferedWriter writer = new BufferedWriter(fw); // todo output file
+      BufferedWriter writer = new BufferedWriter(fw);
       // todo code goes here
       writer.write("test output");
       // ...
