@@ -3,14 +3,25 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
   public static void main(String[] args) {
-    readInput();
-    solveTheProblem();
-    outputFile();
+    ArrayList<String> strings = new ArrayList<>(10);
+    for (int i = 0; i < 10; ++i) {
+      strings.add(null);
+    }
+    strings.add(5, "ref");
+    for (String s : strings) {
+      if (s != null) {
+        System.out.println(s);
+      }
+    }
+//    readInput();
+//    solveTheProblem();
+//    outputFile();
   }
 
   private static void outputFile() {
