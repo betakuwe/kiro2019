@@ -1,6 +1,6 @@
 package io;
 
-import Algorithm;
+import algorithm.Algorithm;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;

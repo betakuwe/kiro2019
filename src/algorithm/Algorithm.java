@@ -1,3 +1,5 @@
+package algorithm;
+
 import graph.Edge;
 import graph.Graph;
 

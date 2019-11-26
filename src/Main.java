@@ -1,3 +1,4 @@
+import algorithm.Algorithm;
 import graph.Edge;
 import io.GraphReader;
 import io.Writer;
@@ -12,7 +13,7 @@ import io.Writer;
     output
   graph.Edge
     define edge
-  Algorithm
+  algorithm.Algorithm
     implement algorithm
  */
 public class Main {
