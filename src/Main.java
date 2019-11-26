@@ -1,7 +1,6 @@
 import graph.Edge;
 import io.GraphReader;
 import io.Writer;
-import java.util.ArrayList;
 
 /* todo list
   Main
@@ -25,18 +24,5 @@ public class Main {
 
     String outputFile = "src/data/output/output.out"; // todo write output file path
     new Writer(outputFile, algorithm).writeToFile();
-  }
-
-  private static void rubbish() {
-    ArrayList<String> strings = new ArrayList<>(10);
-    for (int i = 0; i < 10; ++i) {
-      strings.add(null);
-    }
-    strings.add(10, "ref");
-    for (String s : strings) {
-      if (s != null) {
-        System.out.println(s);
-      }
-    }
   }
 }
