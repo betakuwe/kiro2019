@@ -19,13 +19,13 @@ public class Writer {
     try {
       FileWriter fw = new FileWriter(filename);
       BufferedWriter writer = new BufferedWriter(fw);
-
+      // ==================================================
       // todo code goes here
       writer.write("test output");
 
 
 
-
+      // ==================================================
       writer.flush();
       fw.flush();
       writer.close();

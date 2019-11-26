@@ -20,11 +20,13 @@ public class GraphReader<E> {
       Graph<E> g = new Graph<>();
 
       while (scanner.hasNextLine()) {
+        // ==================================================
         // todo code goes here
 
 
 
         System.out.println(scanner.nextLine());
+        // ==================================================
       }
       return g;
     } catch (FileNotFoundException e) {
