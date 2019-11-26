@@ -13,7 +13,7 @@ import java.util.ArrayList;
     output
   graph.Edge
     define edge
-  algorithm.Algorithm
+  Algorithm
     implement algorithm
  */
 public class Main {
