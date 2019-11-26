@@ -1,6 +1,6 @@
 package io;
 
-import kiro.Algorithm;
+import Algorithm;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
