@@ -44,12 +44,16 @@ public class Graph<E> {
     }
   }
 
-  public int order() {
+  public int numVertices() {
     return numVertices;
   }
 
   public E getEdge(int v1, int v2) {
     return edges.get(v1).get(v2);
+  }
+
+  public ArrayList<ArrayList<E>> getAllEdges() {
+    return edges;
   }
 
   // For directed graphs
@@ -81,18 +85,18 @@ public class Graph<E> {
     return inEdges;
   }
 
-  // For non directed graphs
+  // For undirected graphs
 
-  public void setNonDirectedEdge(int v1, int v2, E e) {
+  public void setUndirectedEdge(int v1, int v2, E e) {
     setDirectedEdge(v1, v2, e);
     setDirectedEdge(v2, v1, e);
   }
 
-  public boolean haveNonDirectedEdge(int v1, int v2) {
+  public boolean haveUndirectedEdge(int v1, int v2) {
     return haveDirectedEdge(v1, v2) && haveDirectedEdge(v2, v1);
   }
 
-  public void mapNonDirectedEdge(int v1, int v2, Function<E, E> f) {
+  public void mapUndirectedEdge(int v1, int v2, Function<E, E> f) {
     E result = f.apply(edges.get(v1).get(v2));
     edges.get(v1).add(v2, result);
     edges.get(v2).add(v1, result);

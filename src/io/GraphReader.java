@@ -1,6 +1,5 @@
 package io;
 
-import algorithm.Algorithm;
 import graph.Edge;
 import graph.Graph;
 import java.io.File;
