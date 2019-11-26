@@ -1,4 +1,4 @@
-package algorithm;
+package kiro;
 
 import graph.Edge;
 import graph.Graph;

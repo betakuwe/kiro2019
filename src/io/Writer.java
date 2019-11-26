@@ -1,6 +1,6 @@
 package io;
 
-import algorithm.Algorithm;
+import kiro.Algorithm;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class Writer {
       FileWriter fw = new FileWriter(filename);
       BufferedWriter writer = new BufferedWriter(fw);
       // ==================================================
-      // todo code goes here
+      // todo write output here
       writer.write("test output");
 
 

@@ -1,4 +1,4 @@
-import algorithm.Algorithm;
+import kiro.Algorithm;
 import graph.Edge;
 import io.GraphReader;
 import io.Writer;

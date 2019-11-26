@@ -21,7 +21,7 @@ public class GraphReader<E> {
 
       while (scanner.hasNextLine()) {
         // ==================================================
-        // todo code goes here
+        // todo write input here
 
 
 
