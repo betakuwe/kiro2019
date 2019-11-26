@@ -1,11 +1,13 @@
 package io;
 
+import algorithm.Algorithm;
+import graph.Edge;
 import graph.Graph;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class GraphReader<E> {
+public class GraphReader<A> {
 
   private final String filename;
 
@@ -13,11 +15,11 @@ public class GraphReader<E> {
     this.filename = filename;
   }
 
-  public Graph<E> readInput() {
+  public A readInput() {
     try {
       Scanner scanner = new Scanner(new File(filename));
 
-      Graph<E> g = new Graph<>();
+      Graph<Edge> g = new Graph<>();
 
       while (scanner.hasNextLine()) {
         // ==================================================
@@ -26,9 +28,9 @@ public class GraphReader<E> {
 
 
         System.out.println(scanner.nextLine());
-        // ==================================================
       }
-      return g;
+      return null; // todo
+      // ==================================================
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }

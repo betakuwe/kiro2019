@@ -12,4 +12,7 @@ public class Algorithm {
     this.g = g;
   }
 
+  public void run() {
+    
+  }
 }

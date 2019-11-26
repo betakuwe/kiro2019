@@ -20,8 +20,8 @@ public class Main {
 
   public static void main(String[] args) {
     String inputFile = "src/data/input/input.in"; // todo write input file path
-    GraphReader<Edge> graphReader = new GraphReader<>(inputFile);
-    Algorithm algorithm = new Algorithm(graphReader.readInput());
+    Algorithm algorithm = new GraphReader<Algorithm>(inputFile).readInput();
+    algorithm.run();
 
     String outputFile = "src/data/output/output.out"; // todo write output file path
     new Writer(outputFile, algorithm).writeToFile();

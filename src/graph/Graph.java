@@ -44,6 +44,10 @@ public class Graph<E> {
     }
   }
 
+  public int order() {
+    return numVertices;
+  }
+
   public E getEdge(int v1, int v2) {
     return edges.get(v1).get(v2);
   }
