@@ -27,8 +27,8 @@ public class Writer {
 
 
       writer.flush();
-      writer.close();
       fw.flush();
+      writer.close();
       fw.close();
     } catch (IOException e) {
       e.printStackTrace();
