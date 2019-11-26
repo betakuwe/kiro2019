@@ -19,8 +19,8 @@ import io.Writer;
 public class Main {
 
   public static void main(String[] args) {
-    String inputFile = "src/data/input/input.in"; // todo write input file path
-    Algorithm algorithm = new GraphReader<Algorithm>(inputFile).readInput();
+    String distances = "src/data/input/paris/distances.csv"; // todo write input file path
+    Algorithm algorithm = new GraphReader(distances).readInput();
     algorithm.run();
 
     String outputFile = "src/data/output/output.out"; // todo write output file path

@@ -6,29 +6,43 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class GraphReader<A> {
+import algorithm.Algorithm;
+
+public class GraphReader {
 
   private final String filename;
-
+  private static int NUM_VERTEX = 57;
+  private static int NUM_EDGE = NUM_VERTEX * NUM_VERTEX;
+  
   public GraphReader(String filename) {
     this.filename = filename;
   }
 
-  public A readInput() {
+  public Algorithm readInput() {
     try {
       Scanner scanner = new Scanner(new File(filename));
 
-      Graph<Edge> g = new Graph<>();
-
-      while (scanner.hasNextLine()) {
+      Graph<Edge> g = new Graph<>(NUM_VERTEX);
+      
+      int i = 0;
+      int j = 0;
+      for(int k = 0; k < NUM_EDGE; k++) {
         // ==================================================
         // todo write input here
-
-
-
-        System.out.println(scanner.nextLine());
+    	  int distance = Integer.parseInt(scanner.next());
+    	  if(i != j) {
+    		  g.setDirectedEdge(i, j, new Edge(distance));
+    	  }
+    	  j++;
+    	  if(j % NUM_VERTEX == 0) {
+    		  i++;
+    		  j = 0;
+    	  }
       }
-      return null; // todo
+      
+      scanner.close();
+      
+      return new Algorithm(g); // todo
       // ==================================================
     } catch (FileNotFoundException e) {
       e.printStackTrace();
