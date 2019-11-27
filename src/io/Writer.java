@@ -1,16 +1,20 @@
 package io;
 
+import algorithm.AlgoTSP;
 import algorithm.Algorithm;
+import graph.Edge;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Writer {
 
   private final String filename;
-  private final Algorithm a;
+  private final AlgoTSP a;
 
-  public Writer(String filename, Algorithm a) {
+  public Writer(String filename, AlgoTSP a) {
     this.filename = filename;
     this.a = a;
   }
@@ -21,10 +25,14 @@ public class Writer {
       BufferedWriter writer = new BufferedWriter(fw);
       // ==================================================
       // todo write output here
-      writer.write("test output");
-
-
-
+      ArrayList<Integer> list = a.getResult();
+      int size = list.size();
+      int i = 0;
+      for(i = 0; i < size - 1; i++) {
+    	  writer.write(list.get(i));
+    	  writer.write("->");
+      }
+      writer.write(list.get(i));
       // ==================================================
       writer.flush();
       fw.flush();

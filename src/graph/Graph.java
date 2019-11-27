@@ -105,4 +105,8 @@ public class Graph<E> {
   public ArrayList<E> getEdges(int v) {
     return getOutEdges(v);
   }
+  
+  public int getNumVertices() {
+		return numVertices;
+	}
 }

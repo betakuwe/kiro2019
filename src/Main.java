@@ -1,3 +1,4 @@
+import algorithm.AlgoTSP;
 import algorithm.Algorithm;
 import graph.Edge;
 import io.GraphReader;
@@ -19,8 +20,8 @@ import io.Writer;
 public class Main {
 
   public static void main(String[] args) {
-    String distances = "src/data/input/paris/distances.csv"; // todo write input file path
-    Algorithm algorithm = new GraphReader(distances).readInput();
+    String distances = "src/data/input/input.in"; // todo write input file path
+    AlgoTSP algorithm = new GraphReader(distances).readInput();
     algorithm.run();
 
     String outputFile = "src/data/output/output.out"; // todo write output file path

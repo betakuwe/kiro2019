@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import algorithm.AlgoTSP;
 import algorithm.Algorithm;
 
 public class GraphReader {
@@ -18,7 +19,7 @@ public class GraphReader {
     this.filename = filename;
   }
 
-  public Algorithm readInput() {
+  public AlgoTSP readInput() {
     try {
       Scanner scanner = new Scanner(new File(filename));
 
@@ -42,7 +43,7 @@ public class GraphReader {
       
       scanner.close();
       
-      return new Algorithm(g); // todo
+      return new AlgoTSP(g); // todo
       // ==================================================
     } catch (FileNotFoundException e) {
       e.printStackTrace();
