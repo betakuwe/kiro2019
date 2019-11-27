@@ -1,5 +1,6 @@
 package algorithm;
 
+import algorithm.library.annealing.Annealing;
 import graph.Edge;
 import graph.Graph;
 
@@ -13,6 +14,6 @@ public class Algorithm {
   }
 
   public void run() {
-
+	  new Annealing(g, 100, 100, 100).run();
   }
 }
