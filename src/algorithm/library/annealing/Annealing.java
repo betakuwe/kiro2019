@@ -1,14 +1,13 @@
 package algorithm.library.annealing;
 
-import graph.Graph;
 import java.util.Random;
 
-public class Annealing {
+public class Annealing<S> {
 
-  private Graph initialState;
-  private Graph currentState;
+  private S initialState;
+  private S currentState;
 
-  private Graph bestState;
+  private S bestState;
   private double bestEnergy;
   private int stepsSinceBest = 0;
 
@@ -17,11 +16,11 @@ public class Annealing {
   private int maxSteps;
   private Random rng = new Random();
 
-  private double energy(Graph state) { // todo to be defined
+  private double energy(S state) { // todo to be defined
     return 0;
   }
 
-  private Graph neighbour(Graph state) { // todo to be defined
+  private S neighbour(S state) { // todo to be defined
     return null;
   }
 
@@ -29,7 +28,7 @@ public class Annealing {
     return false;
   }
 
-  public Annealing(Graph initialState, int maxSteps, double initTemperature, double coolingRate) {
+  public Annealing(S initialState, int maxSteps, double initTemperature, double coolingRate) {
     this.initialState = initialState;
     this.maxSteps = maxSteps;
     this.initTemperature = initTemperature;
@@ -41,7 +40,7 @@ public class Annealing {
     double temperature = initTemperature;
     for (int step = 0; step < maxSteps; ++step) {
       temperature *= coolingRate;
-      Graph neighbourState = neighbour(currentState);
+      S neighbourState = neighbour(currentState);
       double currentEnergy = energy(currentState);
       updateBestState(currentEnergy);
       if (shouldRestart(currentEnergy)) {
@@ -53,7 +52,7 @@ public class Annealing {
     }
   }
 
-  public Graph result() {
+  public S result() {
     return bestState;
   }
 
