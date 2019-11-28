@@ -12,6 +12,8 @@ public class Magie {
   private ArrayList<ArrayList<Integer>> initialState;
   private ArrayList<ArrayList<Integer>> currentState;
   private ArrayList<ArrayList<Integer>> bestState;
+  private int d;
+  private int u;
 
   private double bestEnergy = Double.MAX_VALUE;
   private double currentEnergy;
@@ -27,7 +29,11 @@ public class Magie {
   private Random rng = new Random();
 
   private double energy(ArrayList<ArrayList<Integer>> state) { // todo to be defined
-    return 0;
+	  int numGroups = state.size();
+	  for(int i = 0; i < numGroups; i++) {
+		  int numF = state.get(i).size();
+	  }
+	  return 0;
   }
 
   private ArrayList<ArrayList<Integer>> neighbour(ArrayList<ArrayList<Integer>> state) { // todo to be defined
@@ -41,10 +47,12 @@ public class Magie {
     return false;
   }
 
-  public Magie(ArrayList<ArrayList<Integer>> initialState, double initTemperature, double coolingRate) {
+  public Magie(ArrayList<ArrayList<Integer>> initialState, double initTemperature, double coolingRate, int d, int u) {
     this.initialState = initialState;
     this.initTemperature = initTemperature;
     this.coolingRate = coolingRate;
+    this.d = d;
+    this.u = u;
   }
 
   public void run() {
