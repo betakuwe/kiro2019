@@ -119,7 +119,7 @@ public class Magie {
   }
 
   private void initialiseEnergyGroup() {
-    for(int i = 1; i <= energyGroups.length; i++) {
+    for(int i = 1; i < energyGroups.length; i++) {
       energyGroups[i] = dynamicProg(i, initialState);
     }
     ArrayList<Integer> soustraiter = initialState.get(0);
