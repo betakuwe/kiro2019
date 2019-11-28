@@ -34,7 +34,7 @@ public class AlgoTSP {
 			  ans.add(i);
 		  }
 		  Collections.shuffle(ans);
-		  ans.add(ans.size(), ans.get(0));;
+		  ans.add(ans.size(), ans.get(0));
 		  return ans;
 	  }
 
