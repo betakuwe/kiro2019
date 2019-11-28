@@ -37,7 +37,7 @@ public class Magie {
   }
 
   private ArrayList<ArrayList<Integer>> neighbour(ArrayList<ArrayList<Integer>> state) { // todo to be defined
-    return null;
+
   }
 
   private boolean shouldRestart() { // todo to be defined

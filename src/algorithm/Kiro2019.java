@@ -31,7 +31,7 @@ public class Kiro2019 {
     // set initial state
     int maxG = F + 1;
     int numG = rng.nextInt(maxG);
-    ArrayList<ArrayList<Integer>> is = new ArrayList<>(numG);
+    ArrayList<ArrayList<Integer>> is = new ArrayList<>(numG); // index 0 == sous traite, index i == group i - 1
     LinkedList<Integer> bag = new LinkedList<>();
     for (int i = 0; i < numG + 1; ++i) {
       is.add(new ArrayList<>(4));
@@ -45,9 +45,9 @@ public class Kiro2019 {
     Collections.shuffle(bag);
     for (int i = 0; i < F; ++i) {
       if (rng.nextDouble() < (double) 1 / (F + 1)) { // sous traite
-        is.get(numG).add(i);
+        is.get(0).add(i);
       } else {
-        is.get(rng.nextInt(numG)).add(i);
+        is.get(rng.nextInt(numG) + 1).add(i);
       }
     }
 
