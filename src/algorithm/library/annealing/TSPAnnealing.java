@@ -41,16 +41,16 @@ public class TSPAnnealing {
 			  copy.add(iter.next());
 		  }
 		  copy.remove(copy.get(copy.size() - 1));
-		  /*for(int i = 0; i < numSwaps; i++) {
-			  Collections.swap(copy, rng.nextInt(copy.size()), rng.nextInt(copy.size()));
-		  }*/
-		  Collections.shuffle(copy);
+		  int i = rng.nextInt(copy.size());
+		  int j = rng.nextInt(copy.size());
+		  Collections.swap(copy, i, j);
+		  
 		  copy.add(copy.size(),copy.get(0));
 		  return copy;
 	  }
 
 	  private boolean shouldRestart(double currentEnergy) { // todo to be defined
-	    return currentEnergy < bestEnergy;
+	    return stepsSinceBest > 100;
 	  }
 
 	  public TSPAnnealing(Graph<Edge> g, ArrayList<Integer> initialState, int maxSteps, double initTemperature, double coolingRate) {
