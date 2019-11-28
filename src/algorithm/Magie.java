@@ -27,11 +27,17 @@ public class Magie {
 
   private double energy(ArrayList<ArrayList<Integer>> state) { // todo to be defined
 	  int numGroups = state.size();
+	  int[] energyLevel = new int[numGroups];
 	  for(int i = 0; i < numGroups; i++) {
 		  int numF = state.get(i).size();
+		  energyLevel[i] = dynamicProg(i);
 	  }
 	  return 0;
   }
+
+  private int dynamicProg(int grp) {
+	return 0;
+}
 
   private ArrayList<ArrayList<Integer>> neighbour(ArrayList<ArrayList<Integer>> state) { // todo to be defined
     return null;
