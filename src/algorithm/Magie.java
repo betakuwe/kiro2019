@@ -1,10 +1,15 @@
 package algorithm;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
+
+import graph.Graph;
 
 public class Magie {
   private static final boolean DEBUG = false;
+  
+  private Graph graph;
   
   private ArrayList<ArrayList<Integer>> initialState;
   private ArrayList<ArrayList<Integer>> currentState;
@@ -15,9 +20,9 @@ public class Magie {
   private int i1;
   private int i2;
 
-  private double bestEnergy = Double.MAX_VALUE;
-  private double currentEnergy;
-  private double[] energyGroups;
+  private int bestEnergy = Integer.MAX_VALUE;
+  private int currentEnergy;
+  private int[] energyGroups;
 
   private int stepsSinceBest = 0;
   private int step = 0;
@@ -29,15 +34,15 @@ public class Magie {
   private final double coolingRate;
   private Random rng = new Random();
 
-  private double energy(ArrayList<ArrayList<Integer>> state) { // todo to be defined
-	  double sum = 0.0;
+  private int energy(ArrayList<ArrayList<Integer>> state) { // todo to be defined
+	  int sum = 0;
 	  int g1 = i1 + 1;
 	  int g2 = i2 + 2;
 	  for(int i = 0; i < energyGroups.length; i++) {
 		  if(i == g1) {
-			  sum += dynamicProg(g1);
+			  sum += dynamicProg(g1, state);
 		  } else if(i == g2) {
-			  sum += dynamicProg(g2);
+			  sum += dynamicProg(g2, state);
 		  } else {
 			  sum += energyGroups[i];
 		  }
@@ -45,41 +50,55 @@ public class Magie {
 	  return sum;
   }
 
-  private double dynamicProg(int grp) {
+  private int dynamicProg(int grp, ArrayList<ArrayList<Integer>> state) {
 	  ArrayList<Integer> listOfGroups = currentState.get(grp);
 	  int size = listOfGroups.size() + 2;
-	  double[] dp = new double[size];
-	  dp[0] = 0.0;
-	  for(int i = 1; i < size - 1; i++) {
-		  dp[i] = Double.MAX_VALUE;
+	  int depot = size - 2;
+	  int usine = size - 1;
+	  int[] dp = new int[size];
+	  int sum = 0;
+	  for(int i = 0; i < size - 2; i++) {
+		  dp[i] = cost(i, depot) + graph.getEdge(i, usine);
+		  sum += dp[i];
 	  }
-	  for(int i = 1; i < listOfGroups.size(); i++) {
-		  
-	  }
-	  return 0.0;
+	  this.energyGroups[grp] = sum;
+	  return sum;
 }
 
   private ArrayList<ArrayList<Integer>> neighbour(ArrayList<ArrayList<Integer>> state) { // todo to be defined
-    int i1 = rng.nextInt(state.size());
-    int i2 = rng.nextInt(state.size() + 1); // might create new group
+    // deep copy
+    ArrayList<ArrayList<Integer>> newState = new ArrayList<>(state.size());
+    for (int i = 0; i < state.size(); ++i) {
+      ArrayList<Integer> l = new ArrayList<>();
+      Collections.copy(l, state.get(i));
+      newState.add(i, l);
+    }
 
-    // remove from i1
-    ArrayList<Integer> gi1 = state.get(i1);
+    int x1 = rng.nextInt(newState.size());
+    int x2 = rng.nextInt(newState.size() + 1); // might create new group
+
+    // remove from x1
+    ArrayList<Integer> gi1 = newState.get(x1);
     int v = gi1.remove(rng.nextInt(gi1.size()));
     if (gi1.isEmpty()) {
-      state.remove(i1);
+      newState.remove(x1);
+      i1 = i2 = x2 - 1;
+      for (int i = i1; i < energyGroups.length - 1; ++i) {
+        energyGroups[i] = energyGroups[i + 1];
+      }
     }
+    i1 = x1;
+    i2 = x2;
 
-    // put in i2
-    if (i2 == state.size()) { // create new group
+    // put in x2
+    if (x2 == newState.size()) { // create new group
       ArrayList<Integer> l = new ArrayList<>(4);
       l.add(v);
-      state.add(i2, l);
+      newState.add(x2, l);
     } else {
-      state.get(i2).add(v);
+      newState.get(x2).add(v);
     }
-
-
+    return newState;
   }
 
   private boolean shouldRestart() { // todo to be defined
@@ -89,12 +108,14 @@ public class Magie {
     return false;
   }
 
-  public Magie(ArrayList<ArrayList<Integer>> initialState, double initTemperature, double coolingRate, int d, int u) {
+  public Magie(ArrayList<ArrayList<Integer>> initialState, double initTemperature, double coolingRate, int d, int u, int maxG, Graph graph) {
     this.initialState = initialState;
     this.initTemperature = initTemperature;
     this.coolingRate = coolingRate;
     this.d = d;
     this.u = u;
+    this.energyGroups = new int[maxG];
+    this.graph = graph;
     initialiseEnergyGroup();
   }
 
@@ -139,7 +160,7 @@ public void run() {
     return bestState;
   }
 
-  private void updateBestState(double currentEnergy) {
+  private void updateBestState(int currentEnergy) {
     if (currentEnergy > bestEnergy) {
       stepsSinceBest++;
       return;
@@ -150,7 +171,7 @@ public void run() {
     stepsSinceBest = 0;
   }
 
-  private double probability(double currentEnergy, double neighbourEnergy, double temperature) {
+  private double probability(int currentEnergy, int neighbourEnergy, double temperature) {
     if (currentEnergy >= neighbourEnergy) { // neighbour is better, move to it
       return 1;
     } else { // neighbour is worse, some chance of moving to it
