@@ -57,8 +57,7 @@ public class Magie {
     int cost = 0;
     for(int h = 0; h < H; ++h) {
       int numF = state.get(index).size();
-      ArrayList<Integer> g = new ArrayList<>(numF);
-      Collections.copy(g, state.get(index));
+      ArrayList<Integer> g = new ArrayList<>(state.get(index));
       int[] Ma = new int[numF]; // march at sommet g.get(f)
       int totalM = 0;
       for (int f = 0; f < numF; ++f) {
@@ -236,6 +235,8 @@ public class Magie {
   }
 
   private void log(String s) {
-
+    if (step % 1000 == 0) {
+      System.out.println(s);
+    }
   }
 }
