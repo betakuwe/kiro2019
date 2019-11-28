@@ -40,7 +40,7 @@ import io.Writer;
 public class Main {
 
   public static void main(String[] args) {
-    String distances = "src/data/input/input.in"; // todo write input file path
+    String distances = "src/io/Instance-propre_dgOt8J4.csv"; // todo write input file path
     Kiro2019 algorithm = new GraphReader(distances).readInput();
     algorithm.run();
 
