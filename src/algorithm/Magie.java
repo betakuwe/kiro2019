@@ -1,6 +1,7 @@
 package algorithm;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class Magie {
@@ -60,30 +61,39 @@ public class Magie {
 }
 
   private ArrayList<ArrayList<Integer>> neighbour(ArrayList<ArrayList<Integer>> state) { // todo to be defined
-    int x1 = rng.nextInt(state.size());
-    int x2 = rng.nextInt(state.size() + 1); // might create new group
+    // deep copy
+    ArrayList<ArrayList<Integer>> newState = new ArrayList<>(state.size());
+    for (int i = 0; i < state.size(); ++i) {
+      ArrayList<Integer> l = new ArrayList<>();
+      Collections.copy(l, state.get(i));
+      newState.add(i, l);
+    }
+
+    int x1 = rng.nextInt(newState.size());
+    int x2 = rng.nextInt(newState.size() + 1); // might create new group
 
     // remove from x1
-    ArrayList<Integer> gi1 = state.get(x1);
+    ArrayList<Integer> gi1 = newState.get(x1);
     int v = gi1.remove(rng.nextInt(gi1.size()));
     if (gi1.isEmpty()) {
-      state.remove(x1);
+      newState.remove(x1);
       i1 = i2 = x2 - 1;
       for (int i = i1; i < energyGroups.length - 1; ++i) {
         energyGroups[i] = energyGroups[i + 1];
       }
     }
+    i1 = x1;
+    i2 = x2;
 
     // put in x2
-    if (x2 == state.size()) { // create new group
+    if (x2 == newState.size()) { // create new group
       ArrayList<Integer> l = new ArrayList<>(4);
       l.add(v);
-      state.add(x2, l);
+      newState.add(x2, l);
     } else {
-      state.get(x2).add(v);
+      newState.get(x2).add(v);
     }
-
-
+    return newState;
   }
 
   private boolean shouldRestart() { // todo to be defined
