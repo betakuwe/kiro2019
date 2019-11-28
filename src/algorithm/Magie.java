@@ -26,7 +26,7 @@ public class Magie {
   private final double coolingRate;
   private Random rng = new Random();
 
-  private double energy(int i1, int i2) { // todo to be defined
+  private double energy(ArrayList<ArrayList<Integer>> state) { // todo to be defined
 	  double sum = 0.0;
 	  int g1 = i1 + 1;
 	  int g2 = i2 + 2;
