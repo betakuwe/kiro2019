@@ -19,6 +19,9 @@ public class Kiro2019 {
   private int d; // l'index du depot
   private int u; // l'index de l'usine
 
+  // final result
+
+
   // tools
   private Random rng = new Random();
 
@@ -33,8 +36,12 @@ public class Kiro2019 {
 
     // put fournisseurs in the groups at random
     for (int i = 0; i < F; ++i) {
-
+      is.get(rng.nextInt(maxG)).add(i);
     }
+
+    // la magie
+    Magie m = new Magie(is, initTemperature, coolingRate);
+    m.run();
 
   }
 
