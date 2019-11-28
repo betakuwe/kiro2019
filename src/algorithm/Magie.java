@@ -162,6 +162,7 @@ public class Magie {
   }
 
   private void initialiseEnergyGroup() {
+
     for(int i = 1; i <= energyGroups.length; i++) {
       energyGroups[i] = measureGroupCost(i, initialState);
     }
