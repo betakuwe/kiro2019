@@ -2,6 +2,8 @@ package algorithm;
 
 import graph.Graph;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Random;
 
 public class Kiro2019 {
@@ -30,15 +32,28 @@ public class Kiro2019 {
     int maxG = F + 1;
     int numG = rng.nextInt(maxG);
     ArrayList<ArrayList<Integer>> is = new ArrayList<>(numG);
-    for (int i = 0; i < numG; ++i) {
+    LinkedList<Integer> bag = new LinkedList<>();
+    for (int i = 0; i < numG + 1; ++i) {
       is.add(new ArrayList<>(4));
+      if (i == numG) continue; // don't add sous traite into the bag
+      for (int j = 0; j < 4; ++j) {
+        bag.add(i);
+      }
     }
 
     // put fournisseurs in the groups at random
+    Collections.shuffle(bag);
+    for (int i = 0; i < F; ++i) {
+      if (rng.nextDouble() < (double) 1 / (F + 1)) { // sous traite
+        is.get(numG).add(i);
+      } else {
+        is.get(rng.nextInt(numG)).add(i);
+      }
+    }
 
 
     // la magie
-    Magie m = new Magie(is, initTemperature, coolingRate);
+    Magie m = new Magie(is, initTemperature, coolingRate, d, u);
     m.run();
 
   }
