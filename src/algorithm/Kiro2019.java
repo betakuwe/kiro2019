@@ -10,7 +10,11 @@ public class Kiro2019 {
   private Graph g;
   private int F; // fournisseurs
   private int H; // semaines
-  private
+  private int Q; // taille de camion
+  private int[] S; // couts de sous traitance, S[i] == cout de sous traitance du sommet i
+  private int[][] M; // marchandise M[i][j] == marchandise de sommet i a la semaine j
+  private int d; // l'index du depot
+  private int u; // l'index de l'usine
 
 
 }
