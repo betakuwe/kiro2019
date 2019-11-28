@@ -6,6 +6,9 @@ import java.util.Random;
 public class Magie {
   private static final boolean DEBUG = false;
 
+  private int g1;
+  private int g2;
+
   private ArrayList<ArrayList<Integer>> initialState;
   private ArrayList<ArrayList<Integer>> currentState;
   private ArrayList<ArrayList<Integer>> bestState;

@@ -31,13 +31,11 @@ public class Kiro2019 {
     int numG = rng.nextInt(maxG);
     ArrayList<ArrayList<Integer>> is = new ArrayList<>(numG);
     for (int i = 0; i < numG; ++i) {
-      is.add(new ArrayList<>());
+      is.add(new ArrayList<>(4));
     }
 
     // put fournisseurs in the groups at random
-    for (int i = 0; i < F; ++i) {
-      is.get(rng.nextInt(maxG)).add(i);
-    }
+
 
     // la magie
     Magie m = new Magie(is, initTemperature, coolingRate);
