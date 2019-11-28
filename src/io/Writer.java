@@ -1,6 +1,5 @@
 package io;
 
-import algorithm.library.AlgoTSP;
 import algorithm.Kiro2019;
 import java.util.ArrayList;
 
