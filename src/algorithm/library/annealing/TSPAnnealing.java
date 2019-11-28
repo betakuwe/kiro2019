@@ -1,6 +1,7 @@
 package algorithm.library.annealing;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Random;
@@ -33,19 +34,19 @@ public class TSPAnnealing {
 	  }
 
 	  private ArrayList<Integer> neighbour(ArrayList<Integer> state) { // todo to be defined
-		  int i = rng.nextInt(state.size());
-		  int j = rng.nextInt(state.size());
-		  while (i == j) {
-			  i = rng.nextInt(state.size());
-			  j = rng.nextInt(state.size());
-		  }
+		  //int numSwaps = rng.nextInt(state.size());
 		  Iterator<Integer> iter = state.iterator();
 		  ArrayList<Integer> copy = new ArrayList<>();
 		  while(iter.hasNext()) {
 			  copy.add(iter.next());
 		  }
-		  Collections.swap(copy, i, j);
-		  return state;
+		  copy.remove(copy.get(copy.size() - 1));
+		  /*for(int i = 0; i < numSwaps; i++) {
+			  Collections.swap(copy, rng.nextInt(copy.size()), rng.nextInt(copy.size()));
+		  }*/
+		  Collections.shuffle(copy);
+		  copy.add(copy.size(),copy.get(0));
+		  return copy;
 	  }
 
 	  private boolean shouldRestart(double currentEnergy) { // todo to be defined
@@ -67,6 +68,10 @@ public class TSPAnnealing {
 	      temperature *= coolingRate;
 	      ArrayList<Integer> neighbourState = neighbour(currentState);
 	      double currentEnergy = energy(currentState);
+	      System.out.println(currentEnergy);
+	      for(int i = 0; i < bestState.size(); i++) {
+	    	  System.out.printf("%d ", bestState.get(i));
+	      }
 	      updateBestState(currentEnergy);
 	      if (shouldRestart(currentEnergy)) {
 	        currentState = bestState;

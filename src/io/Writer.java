@@ -8,6 +8,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Writer {
 
@@ -25,14 +26,10 @@ public class Writer {
       BufferedWriter writer = new BufferedWriter(fw);
       // ==================================================
       // todo write output here
-      ArrayList<Integer> list = a.getResult();
-      int size = list.size();
-      int i = 0;
-      for(i = 0; i < size - 1; i++) {
-    	  writer.write(list.get(i));
-    	  writer.write("->");
+      for(int i = 0; i < a.getResult().size(); i++) {
+    	  writer.write(a.getResult().get(i).toString());
+    	  writer.write(" ");
       }
-      writer.write(list.get(i));
       // ==================================================
       writer.flush();
       fw.flush();
