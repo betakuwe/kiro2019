@@ -12,9 +12,9 @@ public class AlgoTSP {
 	private Graph<Edge> graph;
 	private ArrayList<Integer> bestResult;
 	private ArrayList<Integer> initialState;
-	private static int maxSteps = 100000;
-	private static double initTemperature = 1000000000;
-	private static double coolingRate = 0.9;
+	private static int maxSteps = 1000;
+	private static double initTemperature = 1500;
+	private static double coolingRate = 0.99;
 
 	  public ArrayList<Integer> getResult() {
 		return bestResult;
