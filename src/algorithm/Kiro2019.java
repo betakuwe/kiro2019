@@ -33,9 +33,9 @@ public class Kiro2019 {
     int numG = rng.nextInt(maxG);
     ArrayList<ArrayList<Integer>> is = new ArrayList<>(numG); // index 0 == sous traite, index i == group i - 1
     LinkedList<Integer> bag = new LinkedList<>();
-    for (int i = 0; i < numG + 1; ++i) {
+    for (int i = 0; i < maxG; ++i) {
       is.add(new ArrayList<>(4));
-      if (i == numG) continue; // don't add sous traite into the bag
+      if (i == 0) continue; // don't add sous traite into the bag
       for (int j = 0; j < 4; ++j) {
         bag.add(i);
       }
@@ -47,7 +47,7 @@ public class Kiro2019 {
       if (rng.nextDouble() < (double) 1 / (F + 1)) { // sous traite
         is.get(0).add(i);
       } else {
-        is.get(rng.nextInt(numG) + 1).add(i);
+        is.get(bag.removeFirst()).add(i);
       }
     }
 
