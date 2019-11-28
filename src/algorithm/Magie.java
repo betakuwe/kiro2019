@@ -9,6 +9,8 @@ import graph.Graph;
 public class Magie {
   private static final boolean DEBUG = false;
 
+  private ArrayList<ArrayList<ArrayList<ArrayList<Integer>>>> magie; // group, semaine, tournee, fournisseur, qte
+
   private Graph graph;
 
   private ArrayList<ArrayList<Integer>> initialState;
@@ -51,7 +53,15 @@ public class Magie {
   }
 
   private int dynamicProg(int grp, ArrayList<ArrayList<Integer>> state) {
- return 0;
+    ArrayList<Integer> g = state.get(grp);
+    int numF = g.size();
+    int[][] D = new int[2][numF];
+    
+
+
+
+
+    return 0;
   }
 
   private ArrayList<ArrayList<Integer>> neighbour(ArrayList<ArrayList<Integer>> state) { // todo to be defined
