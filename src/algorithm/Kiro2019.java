@@ -11,8 +11,8 @@ public class Kiro2019 {
 
   // raw data
   private Graph g; // graphe oriente
-  private int F; // fournisseurs
-  private int H; // semaines
+  private int F; // nombre de fournisseurs
+  private int H; // nombre de semaines
   private int Q; // taille de camion
   private int[] S; // couts de sous traitance, S[i] == cout de sous traitance du sommet i
   private int[][] M; // marchandise M[i][j] == marchandise de sommet i a la semaine j
@@ -22,12 +22,19 @@ public class Kiro2019 {
   // tools
   private Random rng = new Random();
 
-  public void initialiseData() {
-
-  }
   public void run() {
     // set initial state
-    ArrayList<ArrayList<Integer>> is = new ArrayList<>();
-    int numGroup =
+    int maxG = F + 1;
+    int numG = rng.nextInt(maxG);
+    ArrayList<ArrayList<Integer>> is = new ArrayList<>(numG);
+    for (int i = 0; i < numG; ++i) {
+      is.add(new ArrayList<>());
+    }
+
+    // put fournisseurs in the groups at random
+    for (int i = 0; i < F; ++i) {
+
+    }
+
   }
 }
