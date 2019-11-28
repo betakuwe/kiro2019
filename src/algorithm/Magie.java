@@ -88,6 +88,21 @@ public class Magie {
             q -= minC;
             Ma[minI] = 0;
           }
+          if(magie.get(index - 1) == null) {
+        	  magie.add(new ArrayList<ArrayList<ArrayList<ArrayList<Integer>>>>());
+          } else {
+        	  if(magie.get(index - 1).get(h) == null) {
+        		  magie.get(index - 1).add(new ArrayList<ArrayList<ArrayList<Integer>>>());
+        	  } else {
+        		  if(magie.get(index - 1).get(h).get(t) == null) {
+        			  magie.get(index - 1).get(h).add(new ArrayList<ArrayList<Integer>>());
+        		  } else {
+        			  if(magie.get(index - 1).get(h).get(t).get(t) == null) {
+        				  magie.get(index - 1).get(h).get(t).add(new ArrayList<Integer>());
+        			  }
+        		  }
+        	  }
+          }
           magie.get(index - 1).get(h).get(t).get(t).add(g.get(minI), minC);
         }
         t++;
