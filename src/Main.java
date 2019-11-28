@@ -15,6 +15,27 @@ import io.Writer;
     define edge
   algorithm.Algorithm
     implement algorithm
+
+    aurelien
+    entree, sortie
+    parse and create graph
+
+
+    randomization of initial state ben
+
+    annealing:
+      neighbour: ben
+        petite modification: change the group of a f to another group ben
+      energy: YC
+        algo for calculating path with minimum cost in each group
+        save state of costs
+
+        calculating cost of a path
+
+
+
+
+
  */
 public class Main {
 
