@@ -54,36 +54,46 @@ public class Magie {
   }
 
   private int measureGroupCost(int index, ArrayList<ArrayList<Integer>> state) {
+    int cost = 0;
     for(int h = 0; h < H; ++h) {
       int numF = state.get(index).size();
       ArrayList<Integer> g = new ArrayList<>(numF);
       Collections.copy(g, state.get(index));
       int[] Ma = new int[numF]; // march at sommet g.get(f)
+      int totalM = 0;
       for (int f = 0; f < numF; ++f) {
         Ma[f] = M[g.get(f)][h];
+        totalM += Ma[f];
       }
       int f = d, t = 0;
-      while (!g.isEmpty()) {
-        int minC = Integer.MAX_VALUE;
-        int minI = 0;
-        for (int i = 0; i < g.size(); ++i) {
-          int c = graph.getEdge(f, g.get(i));
-          if (c < minC) {
-            minC = c;
-            minI = i;
+      while(totalM > 0) {
+        int q = Q;
+        while (!g.isEmpty()) {
+          int minC = Integer.MAX_VALUE;
+          int minI = 0;
+          for (int i = 0; i < g.size(); ++i) {
+            int c = graph.getEdge(f, g.get(i));
+            if (c < minC) {
+              minC = c;
+              minI = i;
+            }
           }
+          cost += minC;
+          if (q <= minC) {
+            totalM -= q;
+            Ma[minI] -= q;
+            q = 0;
+          } else {
+            totalM -= minC;
+            q -= minC;
+            Ma[minI] = 0;
+          }
+          magie.get(index - 1).get(h).get(t).get(t).add(g.get(minI), minC);
         }
-        magie.get(index - 1).get(h).get(t).get(t).add(g.get(minI), minC);
-
+        t++;
       }
     }
-
-
-
-
-
-
-    return 0;
+    return cost;
   }
 
   private int findMinIndex(int[] c) {
@@ -158,7 +168,7 @@ public class Magie {
     ArrayList<Integer> soustraiter = initialState.get(0);
     int sum = 0;
     for(Integer i : soustraiter) {
-    	sum += i;
+      sum += i;
     }
     energyGroups[0] = sum;
   }
