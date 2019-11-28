@@ -11,6 +11,7 @@
  * <p>Time Complexity: O(n^2 * 2^n) Space Complexity: O(n * 2^n)
  *
  * @author Steven & Felix Halim, William Fiset, Micah Stairs
+ * @author LeeYuCong edited Algo for changing end node.
  */
 //package com.williamfiset.algorithms.graphtheory;
 
@@ -20,6 +21,7 @@ public class DP {
 
   private final int N;
   private final int START_NODE;
+  private final int END_NODE;
   private final int FINISHED_STATE;
 
   private int[][] distance;
@@ -28,15 +30,12 @@ public class DP {
   private List<Integer> tour = new ArrayList<>();
   private boolean ranSolver = false;
 
-  public DP(int[][] distance) {
-    this(0, distance);
-  }
-
-  public DP(int startNode, int[][] distance) {
+  public DP(int startNode, int endNode, int[][] distance) {
 
     this.distance = distance;
     N = distance.length;
     START_NODE = startNode;
+    END_NODE = endNode;
 
     // Validate inputs.
     if (N <= 2) throw new IllegalStateException("TSP on 0, 1 or 2 nodes doesn't make sense.");
@@ -84,14 +83,14 @@ public class DP {
       state = nextState;
       index = nextIndex;
     }
-    tour.add(START_NODE);
+    tour.add(END_NODE);
     ranSolver = true;
   }
 
   private int tsp(int i, int state, Integer[][] memo, Integer[][] prev) {
 
     // Done this tour. Return cost of going back to start node.
-    if (state == FINISHED_STATE) return distance[i][START_NODE];
+    if (state == FINISHED_STATE) return distance[i][END_NODE];
 
     // Return cached answer if already computed.
     if (memo[i][state] != null) return memo[i][state];
@@ -122,6 +121,8 @@ public class DP {
 	Scanner scanner = new Scanner(System.in);
     int n = 15;
     int[][] distanceMatrix = new int[n][n];
+    int start;
+    int end;
     for (int[] row : distanceMatrix) java.util.Arrays.fill(row, 10000);
     
 	for(int i = 0; i < n; i++) {
@@ -132,7 +133,7 @@ public class DP {
 	}
 
     // Run the solver
-    DP solver = new DP(distanceMatrix);
+    DP solver = new DP(start, end, distanceMatrix);
 
     // Prints: [0, 3, 2, 4, 1, 5, 0]
     System.out.println("Tour: " + solver.getTour());
