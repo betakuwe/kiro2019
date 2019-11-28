@@ -4,53 +4,60 @@ import graph.Edge;
 import graph.Graph;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.Scanner;
 
+import algorithm.Kiro2019;
 import algorithm.library.AlgoTSP;
 
 public class GraphReader {
-
-  private final String filename;
-  private static int NUM_VERTEX = 26;
-  private static int NUM_EDGE = NUM_VERTEX * NUM_VERTEX;
-  
+	private Kiro2019 kiro;
+	private String filename;
+	
   public GraphReader(String filename) {
     this.filename = filename;
+    kiro = new Kiro2019();
   }
 
-  public Kiro2019 readInput() {
+  public Kiro2019 readInput() 
+  {
     try {
+    	
       Scanner scanner = new Scanner(new File(filename));
-        // ==================================================
-        // todo write input here
       String first = scanner.nextLine();
-      int Q = scanner.nextInt();
-      int F = scanner.nextInt();
-      int H = scanner.nextInt();
+      kiro.Q = scanner.nextInt();
+      kiro.F = scanner.nextInt();
+      kiro.H = scanner.nextInt();
       scanner.next();
-      int depotIndex = scanner.nextInt();
-      int usineIndex = scanner.nextInt();
+      kiro.d = scanner.nextInt();
+      kiro.u = scanner.nextInt();
+      
+      kiro.S = new int[kiro.u];
+      kiro.M = new int[kiro.u][kiro.H];
       
       // fournissers
-      for(int i = 0; i < F; i++) {
-    	  int index = scanner.nextInt();
-    	  int coutSousTraitance = scanner.nextInt();
+      for(int i = 0; i < kiro.F; i++) {
+    	  	int index = scanner.nextInt();	  
+    	  	kiro.S[index] = scanner.nextInt();
+    	  	for(int j = 0; j < kiro.H; j++){
+    	  		kiro.M[index][j] = scanner.nextInt();
+      		}
       }
-      
-      for(int i = 0; i < Q; i++) {
+     
+      kiro.g = new Graph(kiro.F+2);
+      for(int i = 0; i < kiro.Q; i++) {
     	  int from = scanner.nextInt();
     	  int to = scanner.nextInt();
     	  int cout = scanner.nextInt();
-    	  new Edge(cout);
+    	  kiro.g.setDirectedEdge(from, to, cout);
       }
       
       scanner.close();
       
-      return null; // todo
-      // ==================================================
+      return kiro;
     } catch (FileNotFoundException e) {
       e.printStackTrace();
+      return null;
     }
-    return null;
   }
 }
