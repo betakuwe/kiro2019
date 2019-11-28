@@ -6,8 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import algorithm.AlgoTSP;
-import algorithm.Algorithm;
+import algorithm.library.AlgoTSP;
 
 public class GraphReader {
 
@@ -22,28 +21,13 @@ public class GraphReader {
   public AlgoTSP readInput() {
     try {
       Scanner scanner = new Scanner(new File(filename));
-
-      Graph<Edge> g = new Graph<>(NUM_VERTEX);
-      
-      int i = 0;
-      int j = 0;
-      for(int k = 0; k < NUM_EDGE; k++) {
         // ==================================================
         // todo write input here
-    	  int distance = Integer.parseInt(scanner.next());
-    	  if(i != j) {
-    		  g.setDirectedEdge(i, j, new Edge(distance));
-    	  }
-    	  j++;
-    	  if(j % NUM_VERTEX == 0) {
-    		  i++;
-    		  j = 0;
-    	  }
-      }
+
       
       scanner.close();
       
-      return new AlgoTSP(g); // todo
+      return null; // todo
       // ==================================================
     } catch (FileNotFoundException e) {
       e.printStackTrace();

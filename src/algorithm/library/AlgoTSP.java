@@ -1,4 +1,4 @@
-package algorithm;
+package algorithm.library;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,9 +12,10 @@ public class AlgoTSP {
 	private Graph<Edge> graph;
 	private ArrayList<Integer> bestResult;
 	private ArrayList<Integer> initialState;
-	private static int maxSteps = 1000000;
-	private static double initTemperature = 1500000;
-	private static double coolingRate = 0.999999999;
+	private static int maxSteps = 1500;
+	private static int stepsToRestart = 100000;
+	private static double initTemperature = 5000;
+	private static double coolingRate = 1 - Math.exp(-15);
 
 	  public ArrayList<Integer> getResult() {
 		return bestResult;
@@ -39,8 +40,5 @@ public class AlgoTSP {
 	  }
 
 	  public void run() {
-		  TSPAnnealing x = new TSPAnnealing(graph, initialState, maxSteps, initTemperature, coolingRate);
-		  x.run();
-		  bestResult = x.result();
 	  }
 }

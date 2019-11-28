@@ -7,14 +7,19 @@ public class Annealing<S> {
 
   private S initialState;
   private S currentState;
-
   private S bestState;
-  private double bestEnergy = Double.MAX_VALUE;
-  private int stepsSinceBest = 0;
 
-  private double initTemperature;
-  private double coolingRate;
-  private int maxSteps;
+  private double bestEnergy = Double.MAX_VALUE;
+  private double currentEnergy;
+
+  private int stepsSinceBest = 0;
+  private int step = 0;
+  private double avgProb = 1;
+  private boolean currentStateChanged = true;
+
+  private final double avgProbLimit = 0.3;
+  private final double initTemperature;
+  private final double coolingRate;
   private Random rng = new Random();
 
   private double energy(S state) { // todo to be defined
@@ -25,13 +30,15 @@ public class Annealing<S> {
     return null;
   }
 
-  private boolean shouldRestart(double currentEnergy) { // todo to be defined
+  private boolean shouldRestart() { // todo to be defined
+    if (avgProb < 0.9) {
+      return (double) stepsSinceBest / step > 1E-4;
+    }
     return false;
   }
 
-  public Annealing(S initialState, int maxSteps, double initTemperature, double coolingRate) {
+  public Annealing(S initialState, double initTemperature, double coolingRate) {
     this.initialState = initialState;
-    this.maxSteps = maxSteps;
     this.initTemperature = initTemperature;
     this.coolingRate = coolingRate;
   }
@@ -39,17 +46,31 @@ public class Annealing<S> {
   public void run() {
     bestState = currentState = initialState;
     double temperature = initTemperature;
-    for (int step = 0; step < maxSteps; ++step) {
-      temperature *= coolingRate;
+    for (int step = 0; avgProb >= avgProbLimit; ++step) {
+      temperature = temperature(temperature);
       S neighbourState = neighbour(currentState);
-      double currentEnergy = energy(currentState);
+      updateCurrentEnergy(currentState);
       updateBestState(currentEnergy);
-      if (shouldRestart(currentEnergy)) {
+      if (shouldRestart()) {
         currentState = bestState;
+        currentStateChanged = true;
       } else if (probability(energy(currentState), energy(neighbourState), temperature)
           >= rng.nextDouble()) {
         currentState = neighbourState;
+        currentStateChanged = true;
+      } else {
+        currentStateChanged = false;
       }
+    }
+  }
+
+  private double temperature(double temperature) {
+    return temperature * coolingRate;
+  }
+
+  private void updateCurrentEnergy(S currentState) {
+    if (currentStateChanged) {
+      currentEnergy = energy(currentState);
     }
   }
 
@@ -74,5 +95,9 @@ public class Annealing<S> {
     } else { // neighbour is worse, some chance of moving to it
       return Math.exp((currentEnergy - neighbourEnergy) / temperature);
     }
+  }
+
+  private void log(String s) {
+
   }
 }
