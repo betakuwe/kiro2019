@@ -7,7 +7,7 @@ public class Kiro2019 {
   private static double coolingRate = 1 - Math.exp(-15);
 
   // raw data
-  private Graph g;
+  private Graph g; // graphe oriente
   private int F; // fournisseurs
   private int H; // semaines
   private int Q; // taille de camion
