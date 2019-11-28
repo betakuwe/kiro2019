@@ -3,15 +3,15 @@ package graph;
 import java.util.ArrayList;
 import java.util.function.Function;
 
-public class Graph<E> {
+public class Graph {
   private int numVertices;
-  private ArrayList<ArrayList<E>> edges;
+  private ArrayList<ArrayList<Integer>> edges;
 
   public Graph(int numVertices) {
     this.numVertices = numVertices;
     edges = new ArrayList<>(numVertices);
     for (int i = 0; i < numVertices; ++i) {
-      ArrayList<E> list = new ArrayList<>(numVertices);
+      ArrayList<Integer> list = new ArrayList<>(numVertices);
       edges.add(i, list);
       for (int j = 0; j < numVertices; ++j) {
         list.add(j, null);
@@ -24,7 +24,7 @@ public class Graph<E> {
   }
 
   public void addVertex() {
-    ArrayList<E> list = new ArrayList<>();
+    ArrayList<Integer> list = new ArrayList<>();
     edges.add(numVertices, list);
     for (int i = 0; i < numVertices; ++i) {
       edges.get(i).add(numVertices, null);
@@ -48,17 +48,17 @@ public class Graph<E> {
     return numVertices;
   }
 
-  public E getEdge(int v1, int v2) {
+  public int getEdge(int v1, int v2) {
     return edges.get(v1).get(v2);
   }
 
-  public ArrayList<ArrayList<E>> getAllEdges() {
+  public ArrayList<ArrayList<Integer>> getAllEdges() {
     return edges;
   }
 
   // For directed graphs
 
-  public void setDirectedEdge(int v1, int v2, E e) {
+  public void setDirectedEdge(int v1, int v2, Integer e) {
     edges.get(v1).add(v2, e);
   }
 
@@ -66,18 +66,18 @@ public class Graph<E> {
     return edges.get(v1).get(v2) != null;
   }
 
-  public void mapDirectedEdge(int v1, int v2, Function<E, E> f) {
+  public void mapDirectedEdge(int v1, int v2, Function<Integer, Integer> f) {
     edges.get(v1).add(v2, f.apply(edges.get(v1).get(v2)));
   }
 
-  public ArrayList<E> getOutEdges(int v) {
+  public ArrayList<Integer> getOutEdges(int v) {
     return edges.get(v);
   }
 
-  public ArrayList<E> getInEdges(int v) {
-    ArrayList<E> inEdges = new ArrayList<>();
+  public ArrayList<Integer> getInEdges(int v) {
+    ArrayList<Integer> inEdges = new ArrayList<>();
     for (int i = 0; i < numVertices; ++i) {
-      E e;
+      Integer e;
       if ((e = edges.get(i).get(v)) != null) {
         inEdges.add(e);
       }
@@ -87,7 +87,7 @@ public class Graph<E> {
 
   // For undirected graphs
 
-  public void setUndirectedEdge(int v1, int v2, E e) {
+  public void setUndirectedEdge(int v1, int v2, Integer e) {
     setDirectedEdge(v1, v2, e);
     setDirectedEdge(v2, v1, e);
   }
@@ -96,13 +96,13 @@ public class Graph<E> {
     return haveDirectedEdge(v1, v2) && haveDirectedEdge(v2, v1);
   }
 
-  public void mapUndirectedEdge(int v1, int v2, Function<E, E> f) {
-    E result = f.apply(edges.get(v1).get(v2));
+  public void mapUndirectedEdge(int v1, int v2, Function<Integer, Integer> f) {
+    Integer result = f.apply(edges.get(v1).get(v2));
     edges.get(v1).add(v2, result);
     edges.get(v2).add(v1, result);
   }
 
-  public ArrayList<E> getEdges(int v) {
+  public ArrayList<Integer> getEdges(int v) {
     return getOutEdges(v);
   }
   
