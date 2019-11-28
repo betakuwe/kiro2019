@@ -26,9 +26,11 @@ public class Magie {
   private final double coolingRate;
   private Random rng = new Random();
 
-  private double energy(int g1, int g2) { // todo to be defined
+  private double energy(int i1, int i2) { // todo to be defined
 	  double sum = 0.0;
-	  for(int i = 1; i <= energyGroups.length, i++) {
+	  int g1 = i1 + 1;
+	  int g2 = i2 + 2;
+	  for(int i = 0; i < energyGroups.length; i++) {
 		  if(i == g1) {
 			  sum += dynamicProg(g1);
 		  } else if(i == g2) {
@@ -41,7 +43,17 @@ public class Magie {
   }
 
   private double dynamicProg(int grp) {
-	return 0;
+	  ArrayList<Integer> listOfGroups = currentState.get(grp);
+	  int size = listOfGroups.size() + 2;
+	  double[] dp = new double[size];
+	  dp[0] = 0.0;
+	  for(int i = 1; i < size - 1; i++) {
+		  dp[i] = Double.MAX_VALUE;
+	  }
+	  for(int i = 1; i < listOfGroups.size(); i++) {
+		  
+	  }
+	  return 0.0;
 }
 
   private ArrayList<ArrayList<Integer>> neighbour(ArrayList<ArrayList<Integer>> state) { // todo to be defined
@@ -65,7 +77,7 @@ public class Magie {
   }
 
   private void initialiseEnergyGroup() {
-	for(int i = 0; i < initialState.size(); i++) {
+	for(int i = 1; i <= energyGroups.length; i++) {
 		energyGroups[i] = dynamicProg(i);
 	}
   }
