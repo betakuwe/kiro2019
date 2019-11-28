@@ -12,6 +12,9 @@ public class Magie {
   private int d;
   private int u;
 
+  private int i1;
+  private int i2;
+
   private double bestEnergy = Double.MAX_VALUE;
   private double currentEnergy;
   private double[] energyGroups;
@@ -69,7 +72,11 @@ public class Magie {
 
     // put in i2
     if (i2 == state.size()) { // create new group
-
+      ArrayList<Integer> l = new ArrayList<>(4);
+      l.add(v);
+      state.add(i2, l);
+    } else {
+      state.get(i2).add(v);
     }
 
 
