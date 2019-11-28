@@ -12,6 +12,9 @@ public class Magie {
   private int d;
   private int u;
 
+  private int i1;
+  private int i2;
+
   private double bestEnergy = Double.MAX_VALUE;
   private double currentEnergy;
   private double[] energyGroups;
@@ -26,9 +29,11 @@ public class Magie {
   private final double coolingRate;
   private Random rng = new Random();
 
-  private double energy(int g1, int g2) { // todo to be defined
+  private double energy(ArrayList<ArrayList<Integer>> state) { // todo to be defined
 	  double sum = 0.0;
-	  for(int i = 1; i <= energyGroups.length, i++) {
+	  int g1 = i1 + 1;
+	  int g2 = i2 + 2;
+	  for(int i = 0; i < energyGroups.length; i++) {
 		  if(i == g1) {
 			  sum += dynamicProg(g1);
 		  } else if(i == g2) {
@@ -41,11 +46,39 @@ public class Magie {
   }
 
   private double dynamicProg(int grp) {
-	return 0;
+	  ArrayList<Integer> listOfGroups = currentState.get(grp);
+	  int size = listOfGroups.size() + 2;
+	  double[] dp = new double[size];
+	  dp[0] = 0.0;
+	  for(int i = 1; i < size - 1; i++) {
+		  dp[i] = Double.MAX_VALUE;
+	  }
+	  for(int i = 1; i < listOfGroups.size(); i++) {
+		  
+	  }
+	  return 0.0;
 }
 
   private ArrayList<ArrayList<Integer>> neighbour(ArrayList<ArrayList<Integer>> state) { // todo to be defined
-    int
+    int i1 = rng.nextInt(state.size());
+    int i2 = rng.nextInt(state.size() + 1); // might create new group
+
+    // remove from i1
+    ArrayList<Integer> gi1 = state.get(i1);
+    int v = gi1.remove(rng.nextInt(gi1.size()));
+    if (gi1.isEmpty()) {
+      state.remove(i1);
+    }
+
+    // put in i2
+    if (i2 == state.size()) { // create new group
+      ArrayList<Integer> l = new ArrayList<>(4);
+      l.add(v);
+      state.add(i2, l);
+    } else {
+      state.get(i2).add(v);
+    }
+
 
   }
 
@@ -66,7 +99,7 @@ public class Magie {
   }
 
   private void initialiseEnergyGroup() {
-	for(int i = 0; i < initialState.size(); i++) {
+	for(int i = 1; i <= energyGroups.length; i++) {
 		energyGroups[i] = dynamicProg(i);
 	}
   }

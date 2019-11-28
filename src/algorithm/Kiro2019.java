@@ -31,9 +31,9 @@ public class Kiro2019 {
     // set initial state
     int maxG = F + 1;
     int numG = rng.nextInt(maxG);
-    ArrayList<ArrayList<Integer>> is = new ArrayList<>(numG); // index 0 == sous traite, index i == group i - 1
+    ArrayList<ArrayList<Integer>> is = new ArrayList<>(maxG); // index 0 == sous traite, index i == group i - 1
     LinkedList<Integer> bag = new LinkedList<>();
-    for (int i = 0; i < maxG; ++i) {
+    for (int i = 0; i < numG; ++i) {
       is.add(new ArrayList<>(4));
       if (i == 0) continue; // don't add sous traite into the bag
       for (int j = 0; j < 4; ++j) {
@@ -44,7 +44,7 @@ public class Kiro2019 {
     // put fournisseurs in the groups at random
     Collections.shuffle(bag);
     for (int i = 0; i < F; ++i) {
-      if (rng.nextDouble() < (double) 1 / (F + 1)) { // sous traite
+      if (rng.nextDouble() < (double) 1 / numG) { // sous traite
         is.get(0).add(i);
       } else {
         is.get(bag.removeFirst()).add(i);
