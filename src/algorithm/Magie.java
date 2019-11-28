@@ -155,6 +155,12 @@ public class Magie {
     for(int i = 1; i <= energyGroups.length; i++) {
       energyGroups[i] = measureGroupCost(i, initialState);
     }
+    ArrayList<Integer> soustraiter = initialState.get(0);
+    int sum = 0;
+    for(Integer i : soustraiter) {
+    	sum += i;
+    }
+    energyGroups[0] = sum;
   }
 
   public void run() {
