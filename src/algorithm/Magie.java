@@ -7,9 +7,9 @@ import java.util.Random;
 import graph.Graph;
 
 public class Magie {
-  private static final boolean DEBUG = false;
+  private static final boolean DEBUG = true;
 
-  private ArrayList<ArrayList<ArrayList<ArrayList<ArrayList<Integer>>>>> magie = new ArrayList<>(); // group, semaine, tournee, fournisseur, qte
+  private ArrayList<ArrayList<ArrayList<ArrayList<Integer>>>> magie = new ArrayList<>(); // group, semaine, tournee, fournisseur, qte
 
   private Graph graph;
 
@@ -66,6 +66,7 @@ public class Magie {
       }
       int f = d, t = 0;
       while(totalM > 0) {
+        System.out.println(totalM);
         int q = Q;
         while (!g.isEmpty()) {
           int minC = Integer.MAX_VALUE;
@@ -87,22 +88,27 @@ public class Magie {
             q -= minC;
             Ma[minI] = 0;
           }
-          if(magie.get(index - 1) == null) {
-        	  magie.add(new ArrayList<ArrayList<ArrayList<ArrayList<Integer>>>>());
-          } else {
-        	  if(magie.get(index - 1).get(h) == null) {
-        		  magie.get(index - 1).add(new ArrayList<ArrayList<ArrayList<Integer>>>());
-        	  } else {
-        		  if(magie.get(index - 1).get(h).get(t) == null) {
-        			  magie.get(index - 1).get(h).add(new ArrayList<ArrayList<Integer>>());
-        		  } else {
-        			  if(magie.get(index - 1).get(h).get(t).get(t) == null) {
-        				  magie.get(index - 1).get(h).get(t).add(new ArrayList<Integer>());
-        			  }
-        		  }
-        	  }
+          magie.ensureCapacity(index - 1);
+          for (int i = magie.size(); i <= index - 1; ++i) {
+            magie.add(new ArrayList<ArrayList<ArrayList<Integer>>>());
           }
-          magie.get(index - 1).get(h).get(t).get(t).add(g.get(minI), minC);
+          ArrayList<ArrayList<ArrayList<Integer>>> l1 = magie.get(index - 1);
+          l1.ensureCapacity(h);
+          for (int i = l1.size(); i <= h; ++i) {
+            l1.add(new ArrayList<ArrayList<Integer>>());
+          }
+          ArrayList<ArrayList<Integer>> l2 = l1.get(h);
+          l2.ensureCapacity(t);
+          for (int i = l2.size(); i <= t; ++i) {
+            l2.add(new ArrayList<Integer>());
+          }
+          ArrayList<Integer> l3 = l2.get(t);
+          l3.ensureCapacity(g.get(minI));
+          for (int i = l3.size(); i <= g.get(minI); ++i) {
+            l3.add(null);
+          }
+          magie.get(index - 1).get(h).get(t).add(g.get(minI), minC);
+          g.remove((int) minI);
         }
         t++;
       }
@@ -183,7 +189,10 @@ public class Magie {
   public void run() {
     bestState = currentState = initialState;
     double temperature = initTemperature;
-    for (int step = 0; avgProb >= avgProbLimit; ++step) {
+    for (step = 0; avgProb >= avgProbLimit; ++step) {
+      log("step: " + step + ", temp: " + temperature);
+      log("current energy: " + currentEnergy + ", best energy: " + bestEnergy);
+      log("");
       temperature = temperature(temperature);
       ArrayList<ArrayList<Integer>> neighbourState = neighbour(currentState);
       updateCurrentEnergy(currentState);
@@ -235,7 +244,7 @@ public class Magie {
   }
 
   private void log(String s) {
-    if (step % 1000 == 0) {
+    if (DEBUG && step % 1000 == 0) {
       System.out.println(s);
     }
   }
