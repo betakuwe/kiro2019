@@ -3,8 +3,12 @@ package algorithm;
 import java.util.ArrayList;
 import java.util.Random;
 
+import graph.Graph;
+
 public class Magie {
   private static final boolean DEBUG = false;
+  
+  private Graph graph;
   
   private ArrayList<ArrayList<Integer>> initialState;
   private ArrayList<ArrayList<Integer>> currentState;
@@ -35,9 +39,9 @@ public class Magie {
 	  int g2 = i2 + 2;
 	  for(int i = 0; i < energyGroups.length; i++) {
 		  if(i == g1) {
-			  sum += dynamicProg(g1);
+			  sum += dynamicProg(g1, state);
 		  } else if(i == g2) {
-			  sum += dynamicProg(g2);
+			  sum += dynamicProg(g2, state);
 		  } else {
 			  sum += energyGroups[i];
 		  }
@@ -45,18 +49,19 @@ public class Magie {
 	  return sum;
   }
 
-  private int dynamicProg(int grp) {
+  private int dynamicProg(int grp, ArrayList<ArrayList<Integer>> state) {
 	  ArrayList<Integer> listOfGroups = currentState.get(grp);
 	  int size = listOfGroups.size() + 2;
+	  int depot = size - 2;
+	  int usine = size - 1;
 	  int[] dp = new int[size];
-	  dp[0] = 0;
-	  for(int i = 1; i < size - 1; i++) {
-		  dp[i] = Integer.MAX_VALUE;
+	  int sum = 0;
+	  for(int i = 0; i < size - 2; i++) {
+		  dp[i] = cost(i, depot) + graph.getEdge(i, usine);
+		  sum += dp[i];
 	  }
-	  for(int i = 1; i < listOfGroups.size(); i++) {
-		  
-	  }
-	  return 0;
+	  this.energyGroups[grp] = sum;
+	  return sum;
 }
 
   private ArrayList<ArrayList<Integer>> neighbour(ArrayList<ArrayList<Integer>> state) { // todo to be defined
@@ -93,13 +98,14 @@ public class Magie {
     return false;
   }
 
-  public Magie(ArrayList<ArrayList<Integer>> initialState, double initTemperature, double coolingRate, int d, int u, int maxG) {
+  public Magie(ArrayList<ArrayList<Integer>> initialState, double initTemperature, double coolingRate, int d, int u, int maxG, Graph graph) {
     this.initialState = initialState;
     this.initTemperature = initTemperature;
     this.coolingRate = coolingRate;
     this.d = d;
     this.u = u;
     this.energyGroups = new int[maxG];
+    this.graph = graph;
     initialiseEnergyGroup();
   }
 
