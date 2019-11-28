@@ -30,5 +30,4 @@ public class Kiro2019 {
     ArrayList<ArrayList<Integer>> is = new ArrayList<>();
     int numGroup =
   }
-
 }
