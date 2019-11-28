@@ -54,7 +54,7 @@ public class Kiro2019 {
 
 
     // la magie
-    Magie m = new Magie(is, initTemperature, coolingRate, d, u, maxG, g);
+    Magie m = new Magie(is, initTemperature, coolingRate, d, u, maxG, g, H, M, Q);
     m.run();
     this.result = m.result();
   }
