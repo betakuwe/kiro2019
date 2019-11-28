@@ -1,6 +1,5 @@
-import algorithm.AlgoTSP;
+import algorithm.library.AlgoTSP;
 import algorithm.Algorithm;
-import graph.Edge;
 import io.GraphReader;
 import io.Writer;
 

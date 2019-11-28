@@ -1,4 +1,4 @@
-package algorithm;
+package algorithm.library;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,8 +40,5 @@ public class AlgoTSP {
 	  }
 
 	  public void run() {
-		  TSPAnnealing x = new TSPAnnealing(graph, initialState, maxSteps, initTemperature, coolingRate, stepsToRestart);
-		  x.run();
-		  bestResult = x.result();
 	  }
 }

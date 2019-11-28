@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import algorithm.AlgoTSP;
+import algorithm.library.AlgoTSP;
 import algorithm.Algorithm;
 
 public class GraphReader {

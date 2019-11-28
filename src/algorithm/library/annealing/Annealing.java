@@ -37,7 +37,7 @@ public class Annealing<S> {
     return false;
   }
 
-  public Annealing(S initialState, int maxSteps, double initTemperature, double coolingRate) {
+  public Annealing(S initialState, double initTemperature, double coolingRate) {
     this.initialState = initialState;
     this.initTemperature = initTemperature;
     this.coolingRate = coolingRate;

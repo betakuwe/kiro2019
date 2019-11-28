@@ -1,14 +1,11 @@
 package io;
 
-import algorithm.AlgoTSP;
+import algorithm.library.AlgoTSP;
 import algorithm.Algorithm;
-import graph.Edge;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Writer {
 
