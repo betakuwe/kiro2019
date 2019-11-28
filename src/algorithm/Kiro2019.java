@@ -6,8 +6,8 @@ import java.util.Random;
 
 public class Kiro2019 {
   // annealing
-  private static double initTemperature = 5000;
-  private static double coolingRate = 1 - Math.exp(-15);
+  private double initTemperature = 5000;
+  private double coolingRate = 1 - Math.exp(-15);
 
   // raw data
   private Graph g; // graphe oriente
@@ -22,6 +22,9 @@ public class Kiro2019 {
   // tools
   private Random rng = new Random();
 
+  public void initialiseData() {
+
+  }
   public void run() {
     // set initial state
     ArrayList<ArrayList<Integer>> is = new ArrayList<>();
