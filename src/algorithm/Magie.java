@@ -37,7 +37,7 @@ public class Magie {
   private int energy(ArrayList<ArrayList<Integer>> state) { // todo to be defined
     int sum = 0;
     int g1 = i1 + 1;
-    int g2 = i2 + 2;
+    int g2 = i2 + 1;
     for(int i = 0; i < energyGroups.length; i++) {
       if(i == g1) {
         sum += dynamicProg(g1, state);
@@ -112,6 +112,12 @@ public class Magie {
     for(int i = 1; i <= energyGroups.length; i++) {
       energyGroups[i] = dynamicProg(i, initialState);
     }
+    ArrayList<Integer> soustraiter = initialState.get(0);
+    int sum = 0;
+    for(Integer i : soustraiter) {
+    	sum += i;
+    }
+    energyGroups[0] = sum;
   }
 
   public void run() {

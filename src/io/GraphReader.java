@@ -42,8 +42,9 @@ public class GraphReader {
       		}
       }
      
-      kiro.g = new Graph(kiro.F+2);
-      for(int i = 0; i < kiro.Q; i++) {
+      int numEdges = (kiro.F + 2) * (kiro.F + 2);
+      kiro.g = new Graph(kiro.F + 2);
+      for(int i = 0; i < numEdges; i++) {
     	  int from = scanner.nextInt();
     	  int to = scanner.nextInt();
     	  int cout = scanner.nextInt();
