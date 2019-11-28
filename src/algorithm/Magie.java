@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import graph.Graph;
+
 public class Magie {
   private static final boolean DEBUG = false;
+
+  private Graph graph;
 
   private ArrayList<ArrayList<Integer>> initialState;
   private ArrayList<ArrayList<Integer>> currentState;
@@ -36,9 +40,9 @@ public class Magie {
     int g2 = i2 + 2;
     for(int i = 0; i < energyGroups.length; i++) {
       if(i == g1) {
-        sum += dynamicProg(g1);
+        sum += dynamicProg(g1, state);
       } else if(i == g2) {
-        sum += dynamicProg(g2);
+        sum += dynamicProg(g2, state);
       } else {
         sum += energyGroups[i];
       }
@@ -46,8 +50,8 @@ public class Magie {
     return sum;
   }
 
-  private int dynamicProg(int grp) {
-    int numF =
+  private int dynamicProg(int grp, ArrayList<ArrayList<Integer>> state) {
+ return 0;
   }
 
   private ArrayList<ArrayList<Integer>> neighbour(ArrayList<ArrayList<Integer>> state) { // todo to be defined
@@ -93,19 +97,20 @@ public class Magie {
     return false;
   }
 
-  public Magie(ArrayList<ArrayList<Integer>> initialState, double initTemperature, double coolingRate, int d, int u, int maxG) {
+  public Magie(ArrayList<ArrayList<Integer>> initialState, double initTemperature, double coolingRate, int d, int u, int maxG, Graph graph) {
     this.initialState = initialState;
     this.initTemperature = initTemperature;
     this.coolingRate = coolingRate;
     this.d = d;
     this.u = u;
     this.energyGroups = new int[maxG];
+    this.graph = graph;
     initialiseEnergyGroup();
   }
 
   private void initialiseEnergyGroup() {
     for(int i = 1; i <= energyGroups.length; i++) {
-      energyGroups[i] = dynamicProg(i);
+      energyGroups[i] = dynamicProg(i, initialState);
     }
   }
 
