@@ -5,10 +5,7 @@ import java.util.Random;
 
 public class Magie {
   private static final boolean DEBUG = false;
-
-  private int g1;
-  private int g2;
-
+  
   private ArrayList<ArrayList<Integer>> initialState;
   private ArrayList<ArrayList<Integer>> currentState;
   private ArrayList<ArrayList<Integer>> bestState;
@@ -17,6 +14,7 @@ public class Magie {
 
   private double bestEnergy = Double.MAX_VALUE;
   private double currentEnergy;
+  private double[] energyGroups;
 
   private int stepsSinceBest = 0;
   private int step = 0;
@@ -28,13 +26,23 @@ public class Magie {
   private final double coolingRate;
   private Random rng = new Random();
 
-  private double energy(ArrayList<ArrayList<Integer>> state) { // todo to be defined
-	  int numGroups = state.size();
-	  for(int i = 0; i < numGroups; i++) {
-		  int numF = state.get(i).size();
+  private double energy(int g1, int g2) { // todo to be defined
+	  double sum = 0.0;
+	  for(int i = 1; i <= energyGroups.length, i++) {
+		  if(i == g1) {
+			  sum += dynamicProg(g1);
+		  } else if(i == g2) {
+			  sum += dynamicProg(g2);
+		  } else {
+			  sum += energyGroups[i];
+		  }
 	  }
-	  return 0;
+	  return sum;
   }
+
+  private double dynamicProg(int grp) {
+	return 0;
+}
 
   private ArrayList<ArrayList<Integer>> neighbour(ArrayList<ArrayList<Integer>> state) { // todo to be defined
     int
@@ -54,9 +62,16 @@ public class Magie {
     this.coolingRate = coolingRate;
     this.d = d;
     this.u = u;
+    initialiseEnergyGroup();
   }
 
-  public void run() {
+  private void initialiseEnergyGroup() {
+	for(int i = 0; i < initialState.size(); i++) {
+		energyGroups[i] = dynamicProg(i);
+	}
+  }
+
+public void run() {
     bestState = currentState = initialState;
     double temperature = initTemperature;
     for (int step = 0; avgProb >= avgProbLimit; ++step) {
