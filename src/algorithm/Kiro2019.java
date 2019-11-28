@@ -20,6 +20,7 @@ public class Kiro2019 {
   public int[][] M; // marchandise M[i][j] == marchandise de sommet i a la semaine j
   public int d; // l'index du depot
   public int u; // l'index de l'usine
+  public ArrayList<ArrayList<Integer>> result;
 
   // final result
 
@@ -53,8 +54,12 @@ public class Kiro2019 {
 
 
     // la magie
-    Magie m = new Magie(is, initTemperature, coolingRate, d, u, maxG);
+    Magie m = new Magie(is, initTemperature, coolingRate, d, u, maxG, g);
     m.run();
-
+    this.result = m.result();
+  }
+  
+  public ArrayList<ArrayList<Integer>> getResult() {
+	  return this.result;
   }
 }

@@ -4,11 +4,9 @@ import graph.Edge;
 import graph.Graph;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.Scanner;
 
 import algorithm.Kiro2019;
-import algorithm.library.AlgoTSP;
 
 public class GraphReader {
 	private Kiro2019 kiro;
