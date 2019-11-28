@@ -9,7 +9,7 @@ import graph.Graph;
 public class Magie {
   private static final boolean DEBUG = false;
 
-  private ArrayList<ArrayList<ArrayList<ArrayList<Integer>>>> magie; // group, semaine, tournee, fournisseur, qte
+  private ArrayList<ArrayList<ArrayList<ArrayList<ArrayList<Integer>>>>> magie = new ArrayList<>(); // group, semaine, tournee, fournisseur, qte
 
   private Graph graph;
 
@@ -18,6 +18,9 @@ public class Magie {
   private ArrayList<ArrayList<Integer>> bestState;
   private int d;
   private int u;
+  public int H; // nombre de semaines
+  public int[][] M; // marchandise M[i][j] == marchandise de sommet i a la semaine j
+  public int Q; // taille de camion
 
   private int i1;
   private int i2;
@@ -38,13 +41,11 @@ public class Magie {
 
   private int energy(ArrayList<ArrayList<Integer>> state) { // todo to be defined
     int sum = 0;
-    int g1 = i1 + 1;
-    int g2 = i2 + 2;
     for(int i = 0; i < energyGroups.length; i++) {
-      if(i == g1) {
-        sum += dynamicProg(g1, state);
-      } else if(i == g2) {
-        sum += dynamicProg(g2, state);
+      if(i == i1) {
+        sum += measureGroupCost(i1, state);
+      } else if(i == i2) {
+        sum += measureGroupCost(i2, state);
       } else {
         sum += energyGroups[i];
       }
@@ -52,16 +53,45 @@ public class Magie {
     return sum;
   }
 
-  private int dynamicProg(int grp, ArrayList<ArrayList<Integer>> state) {
-    ArrayList<Integer> g = state.get(grp);
-    int numF = g.size();
-    int[][] D = new int[2][numF];
-    
+  private int measureGroupCost(int index, ArrayList<ArrayList<Integer>> state) {
+    for(int h = 0; h < H; ++h) {
+      int numF = state.get(index).size();
+      ArrayList<Integer> g = new ArrayList<>(numF);
+      Collections.copy(g, state.get(index));
+      int[] Ma = new int[numF]; // march at sommet g.get(f)
+      for (int f = 0; f < numF; ++f) {
+        Ma[f] = M[g.get(f)][h];
+      }
+      int f = d, t = 0;
+      while (!g.isEmpty()) {
+        int minC = Integer.MAX_VALUE;
+        int minI = 0;
+        for (int i = 0; i < g.size(); ++i) {
+          int c = graph.getEdge(f, g.get(i));
+          if (c < minC) {
+            minC = c;
+            minI = i;
+          }
+        }
+        magie.get(index - 1).get(h).get(t).get(t).add(g.get(minI), minC);
+
+      }
+    }
+
+
 
 
 
 
     return 0;
+  }
+
+  private int findMinIndex(int[] c) {
+    int min = Integer.MAX_VALUE;
+    for (int i : c) {
+      min = i < min ? i : min;
+    }
+    return min;
   }
 
   private ArrayList<ArrayList<Integer>> neighbour(ArrayList<ArrayList<Integer>> state) { // todo to be defined
@@ -107,7 +137,7 @@ public class Magie {
     return false;
   }
 
-  public Magie(ArrayList<ArrayList<Integer>> initialState, double initTemperature, double coolingRate, int d, int u, int maxG, Graph graph) {
+  public Magie(ArrayList<ArrayList<Integer>> initialState, double initTemperature, double coolingRate, int d, int u, int maxG, Graph graph, int H, int[][] M, int Q) {
     this.initialState = initialState;
     this.initTemperature = initTemperature;
     this.coolingRate = coolingRate;
@@ -115,12 +145,15 @@ public class Magie {
     this.u = u;
     this.energyGroups = new int[maxG];
     this.graph = graph;
+    this.H = H;
+    this.M = M;
+    this.Q = Q;
     initialiseEnergyGroup();
   }
 
   private void initialiseEnergyGroup() {
     for(int i = 1; i <= energyGroups.length; i++) {
-      energyGroups[i] = dynamicProg(i, initialState);
+      energyGroups[i] = measureGroupCost(i, initialState);
     }
   }
 
