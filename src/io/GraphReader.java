@@ -12,7 +12,7 @@ import algorithm.Algorithm;
 public class GraphReader {
 
   private final String filename;
-  private static int NUM_VERTEX = 15;
+  private static int NUM_VERTEX = 26;
   private static int NUM_EDGE = NUM_VERTEX * NUM_VERTEX;
   
   public GraphReader(String filename) {
