@@ -17,12 +17,17 @@ public class TSPAnnealing {
 	private ArrayList<Integer> currentState;
 
 	private ArrayList<Integer> bestState;
+	private double currentEnergy;
 	private double bestEnergy = Double.MAX_VALUE;
+	private int step = 0;
 	private int stepsSinceBest = 0;
+	private double averageProbability = 1;
+	private boolean currentStateChanged = true;
 
 	private double initTemperature;
 	private double coolingRate;
 	private int maxSteps;
+	private int stepsToRestart;
 	private Random rng = new Random();
 	private Graph<Edge> g;
 
@@ -52,39 +57,61 @@ public class TSPAnnealing {
 	}
 
 	private boolean shouldRestart(double currentEnergy) { // todo to be defined
-		return stepsSinceBest > 100;
+	  if (averageProbability < 0.9) {
+			return (double) stepsSinceBest / step > 1E-4;
+		}
+	  	return false;
 	}
 
-	public TSPAnnealing(Graph<Edge> g, ArrayList<Integer> initialState, int maxSteps, double initTemperature, double coolingRate) {
+	public TSPAnnealing(Graph<Edge> g, ArrayList<Integer> initialState, int maxSteps, double initTemperature, double coolingRate, int stepsToRestart) {
 		this.g = g;
 		this.initialState = initialState;
 		this.maxSteps = maxSteps;
 		this.initTemperature = initTemperature;
 		this.coolingRate = coolingRate;
+		this.stepsToRestart = stepsToRestart;
 	}
 
 	public void run() {
 		bestState = currentState = initialState;
 		double temperature = initTemperature;
-		for (int step = 0; step < maxSteps; ++step) {
-			System.out.println("step: " + step + ", temperature: " + temperature);
-			System.out.printf("current state: %s", currentState.toString());
+		for (step = 0; /*step < maxSteps*/ averageProbability > 0.3 ; ++step) {
+		  if (step % 1000 == 0) {
+				System.out.println("step: " + step + ", temperature: " + temperature);
+				System.out.printf("current state: %s", currentState.toString());
+			}
 
 			temperature = temperature(temperature);
 			ArrayList<Integer> neighbourState = neighbour(currentState);
-			double currentEnergy = energy(currentState);
-			System.out.println(", current energy: " + currentEnergy);
+
+			if (currentStateChanged) {
+				currentEnergy = energy(currentState);
+			}
+
+			if (step % 1000 == 0) {
+				System.out.println(", current energy: " + currentEnergy);
+			}
 
 			updateBestState(currentEnergy);
 
-			System.out.printf("best state: %s", bestState.toString());
-			System.out.println(", best energy: " + bestEnergy + "\n");
+			if (step % 1000 == 0) {
+				System.out.printf("best state: %s", bestState.toString());
+				System.out.println(", best energy: " + bestEnergy);
+			}
 
 			if (shouldRestart(currentEnergy)) {
 				currentState = bestState;
+				currentStateChanged = true;
 			} else if (probability(energy(currentState), energy(neighbourState), temperature)
 					>= rng.nextDouble()) {
 				currentState = neighbourState;
+				currentStateChanged = true;
+			} else {
+				currentStateChanged = false;
+			}
+
+			if (step % 1000 == 0) {
+				System.out.println();
 			}
 		}
 	}
@@ -111,10 +138,23 @@ public class TSPAnnealing {
 	}
 
 	private double probability(double currentEnergy, double neighbourEnergy, double temperature) {
-		if (currentEnergy >= neighbourEnergy) { // neighbour is better, move to it
+		double diff = currentEnergy - neighbourEnergy;
+		if (step % 1000 == 0) {
+			System.out.print("Current energy - neighbour energy == " + diff);
+		}
+		if (diff >= 0) { // neighbour is better, move to it
 			return 1;
 		} else { // neighbour is worse, some chance of moving to it
-			return Math.exp((currentEnergy - neighbourEnergy) / temperature);
+			double prob = Math.exp(diff / temperature);
+			updateAverageProb(prob);
+			if (step % 1000 == 0) {
+				System.out.println(", probability: " + prob + ", avg prob: " + averageProbability);
+			}
+			return prob;
 		}
+	}
+
+	private void updateAverageProb(double prob) {
+	  averageProbability = (averageProbability * step + prob) / (step + 1);
 	}
 }
