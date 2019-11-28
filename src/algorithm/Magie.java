@@ -96,14 +96,6 @@ public class Magie {
     return cost;
   }
 
-  private int findMinIndex(int[] c) {
-    int min = Integer.MAX_VALUE;
-    for (int i : c) {
-      min = i < min ? i : min;
-    }
-    return min;
-  }
-
   private ArrayList<ArrayList<Integer>> neighbour(ArrayList<ArrayList<Integer>> state) { // todo to be defined
     // deep copy
     ArrayList<ArrayList<Integer>> newState = new ArrayList<>(state.size());
