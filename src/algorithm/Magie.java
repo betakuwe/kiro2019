@@ -16,7 +16,7 @@ public class Magie {
   private int i1;
   private int i2;
 
-  private int bestEnergy = Double.MAX_VALUE;
+  private int bestEnergy = Integer.MAX_VALUE;
   private int currentEnergy;
   private int[] energyGroups;
 
@@ -31,7 +31,7 @@ public class Magie {
   private Random rng = new Random();
 
   private int energy(ArrayList<ArrayList<Integer>> state) { // todo to be defined
-	  int sum = 0.0;
+	  int sum = 0;
 	  int g1 = i1 + 1;
 	  int g2 = i2 + 2;
 	  for(int i = 0; i < energyGroups.length; i++) {
@@ -50,14 +50,14 @@ public class Magie {
 	  ArrayList<Integer> listOfGroups = currentState.get(grp);
 	  int size = listOfGroups.size() + 2;
 	  int[] dp = new int[size];
-	  dp[0] = 0.0;
+	  dp[0] = 0;
 	  for(int i = 1; i < size - 1; i++) {
-		  dp[i] = Double.MAX_VALUE;
+		  dp[i] = Integer.MAX_VALUE;
 	  }
 	  for(int i = 1; i < listOfGroups.size(); i++) {
 		  
 	  }
-	  return 0.0;
+	  return 0;
 }
 
   private ArrayList<ArrayList<Integer>> neighbour(ArrayList<ArrayList<Integer>> state) { // todo to be defined
