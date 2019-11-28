@@ -3,12 +3,13 @@ package algorithm.library.annealing;
 import java.util.Random;
 
 public class Annealing<S> {
+  private static final boolean DEBUG = false;
 
   private S initialState;
   private S currentState;
 
   private S bestState;
-  private double bestEnergy;
+  private double bestEnergy = Double.MAX_VALUE;
   private int stepsSinceBest = 0;
 
   private double initTemperature;
