@@ -12,6 +12,9 @@ public class Magie {
   private int d;
   private int u;
 
+  private int i1;
+  private int i2;
+
   private double bestEnergy = Double.MAX_VALUE;
   private double currentEnergy;
   private double[] energyGroups;
@@ -58,9 +61,23 @@ public class Magie {
 
   private ArrayList<ArrayList<Integer>> neighbour(ArrayList<ArrayList<Integer>> state) { // todo to be defined
     int i1 = rng.nextInt(state.size());
-    int i2 = rng.nextInt(state.size());
+    int i2 = rng.nextInt(state.size() + 1); // might create new group
 
-    int v = state.get(i1).;
+    // remove from i1
+    ArrayList<Integer> gi1 = state.get(i1);
+    int v = gi1.remove(rng.nextInt(gi1.size()));
+    if (gi1.isEmpty()) {
+      state.remove(i1);
+    }
+
+    // put in i2
+    if (i2 == state.size()) { // create new group
+      ArrayList<Integer> l = new ArrayList<>(4);
+      l.add(v);
+      state.add(i2, l);
+    } else {
+      state.get(i2).add(v);
+    }
 
 
   }
