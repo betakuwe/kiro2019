@@ -1,6 +1,8 @@
 package algorithm;
 
 import graph.Graph;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Kiro2019 {
   // annealing
@@ -17,5 +19,13 @@ public class Kiro2019 {
   private int d; // l'index du depot
   private int u; // l'index de l'usine
 
+  // tools
+  private Random rng = new Random();
+
+  public void run() {
+    // set initial state
+    ArrayList<ArrayList<Integer>> is = new ArrayList<>();
+    int numGroup =
+  }
 
 }
