@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Magie {
   private static final boolean DEBUG = false;
-  
+
   private ArrayList<ArrayList<Integer>> initialState;
   private ArrayList<ArrayList<Integer>> currentState;
   private ArrayList<ArrayList<Integer>> bestState;
@@ -31,34 +31,24 @@ public class Magie {
   private Random rng = new Random();
 
   private int energy(ArrayList<ArrayList<Integer>> state) { // todo to be defined
-	  int sum = 0;
-	  int g1 = i1 + 1;
-	  int g2 = i2 + 2;
-	  for(int i = 0; i < energyGroups.length; i++) {
-		  if(i == g1) {
-			  sum += dynamicProg(g1);
-		  } else if(i == g2) {
-			  sum += dynamicProg(g2);
-		  } else {
-			  sum += energyGroups[i];
-		  }
-	  }
-	  return sum;
+    int sum = 0;
+    int g1 = i1 + 1;
+    int g2 = i2 + 2;
+    for(int i = 0; i < energyGroups.length; i++) {
+      if(i == g1) {
+        sum += dynamicProg(g1);
+      } else if(i == g2) {
+        sum += dynamicProg(g2);
+      } else {
+        sum += energyGroups[i];
+      }
+    }
+    return sum;
   }
 
   private int dynamicProg(int grp) {
-	  ArrayList<Integer> listOfGroups = currentState.get(grp);
-	  int size = listOfGroups.size() + 2;
-	  int[] dp = new int[size];
-	  dp[0] = 0;
-	  for(int i = 1; i < size - 1; i++) {
-		  dp[i] = Integer.MAX_VALUE;
-	  }
-	  for(int i = 1; i < listOfGroups.size(); i++) {
-		  
-	  }
-	  return 0;
-}
+    int numF =
+  }
 
   private ArrayList<ArrayList<Integer>> neighbour(ArrayList<ArrayList<Integer>> state) { // todo to be defined
     // deep copy
@@ -114,12 +104,12 @@ public class Magie {
   }
 
   private void initialiseEnergyGroup() {
-	for(int i = 1; i <= energyGroups.length; i++) {
-		energyGroups[i] = dynamicProg(i);
-	}
+    for(int i = 1; i <= energyGroups.length; i++) {
+      energyGroups[i] = dynamicProg(i);
+    }
   }
 
-public void run() {
+  public void run() {
     bestState = currentState = initialState;
     double temperature = initTemperature;
     for (int step = 0; avgProb >= avgProbLimit; ++step) {
