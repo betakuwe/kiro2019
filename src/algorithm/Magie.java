@@ -1,16 +1,20 @@
 package algorithm;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Random;
 
 public class Magie {
   private static final boolean DEBUG = false;
   
-  private ArrayList<ArrayList<Integer>> initialState;
-  private ArrayList<ArrayList<Integer>> currentState;
-  private ArrayList<ArrayList<Integer>> bestState;
+  private ArrayList<LinkedList<Integer>> initialState;
+  private ArrayList<LinkedList<Integer>> currentState;
+  private ArrayList<LinkedList<Integer>> bestState;
   private int d;
   private int u;
+
+  private int i1;
+  private int i2
 
   private double bestEnergy = Double.MAX_VALUE;
   private double currentEnergy;
@@ -56,7 +60,12 @@ public class Magie {
 	  return 0.0;
 }
 
-  private ArrayList<ArrayList<Integer>> neighbour(ArrayList<ArrayList<Integer>> state) { // todo to be defined
+  private ArrayList<LinkedList<Integer>> neighbour(ArrayList<LinkedList<Integer>> state) { // todo to be defined
+    int i1 = rng.nextInt(state.size());
+    int i2 = rng.nextInt(state.size());
+
+    int v = state.get(i1).rem;
+
 
   }
 
@@ -67,7 +76,7 @@ public class Magie {
     return false;
   }
 
-  public Magie(ArrayList<ArrayList<Integer>> initialState, double initTemperature, double coolingRate, int d, int u) {
+  public Magie(ArrayList<LinkedList<Integer>> initialState, double initTemperature, double coolingRate, int d, int u) {
     this.initialState = initialState;
     this.initTemperature = initTemperature;
     this.coolingRate = coolingRate;
@@ -87,7 +96,7 @@ public void run() {
     double temperature = initTemperature;
     for (int step = 0; avgProb >= avgProbLimit; ++step) {
       temperature = temperature(temperature);
-      ArrayList<ArrayList<Integer>> neighbourState = neighbour(currentState);
+      ArrayList<LinkedList<Integer>> neighbourState = neighbour(currentState);
       updateCurrentEnergy(currentState);
       updateBestState(currentEnergy);
       if (shouldRestart()) {
@@ -107,13 +116,13 @@ public void run() {
     return temperature * coolingRate;
   }
 
-  private void updateCurrentEnergy(ArrayList<ArrayList<Integer>> currentState) {
+  private void updateCurrentEnergy(ArrayList<LinkedList<Integer>> currentState) {
     if (currentStateChanged) {
       currentEnergy = energy(currentState);
     }
   }
 
-  public ArrayList<ArrayList<Integer>> result() {
+  public ArrayList<LinkedList<Integer>> result() {
     return bestState;
   }
 
