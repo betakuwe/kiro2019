@@ -22,9 +22,6 @@ public class Kiro2019 {
   // tools
   private Random rng = new Random();
 
-  public void initialiseData() {
-
-  }
   public void run() {
     // set initial state
     ArrayList<ArrayList<Integer>> is = new ArrayList<>();
